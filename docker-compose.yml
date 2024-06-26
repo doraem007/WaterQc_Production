@@ -1,22 +1,30 @@
 version: '3.9'
 services:
-
   db:
-    build: db/.
+    image: mysql:8.0.37
     restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Xe_3AtNwRUTBtbSa
+      MYSQL_USER: doraem0070
+      MYSQL_PASSWORD: P@ssword1234
     ports:
-      - "3310:3310"
+      - "3310:3310"  
+    volumes:
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf 
+      - ./localhost.sql:/docker-entrypoint-initdb.d/localhost.sql
     networks:
       - app-network
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    build:
+      context: .
+      dockerfile: Dockerfile.phpmyadmin
     restart: always
     environment:
       PMA_HOST: db
       PMA_PORT: 3310
     ports:
-      - "8080:80"
+      - "1110:80"
     networks:
       - app-network
 
@@ -42,7 +50,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "80:80"
+      - "1111:80"
     networks:
       - app-network
 
