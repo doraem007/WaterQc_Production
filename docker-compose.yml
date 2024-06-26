@@ -16,7 +16,9 @@ services:
       - app-network
 
     phpmyadmin:
-      build: phpmyadmin/.
+      build:
+        context: .
+        dockerfile: Dockerfile.phpmyadmin
       restart: always
       environment:
         PMA_HOST: db
