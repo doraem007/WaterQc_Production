@@ -15,16 +15,16 @@ services:
     networks:
       - app-network
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    restart: always
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3310
-    ports:
-      - "8080:80"
-    networks:
-      - app-network
+    phpmyadmin:
+      build: phpmyadmin/.
+      restart: always
+      environment:
+        PMA_HOST: db
+        PMA_PORT: 3310
+      ports:
+        - "8080:80"
+      networks:
+        - app-network
 
   # web:
   #   build: app/.
