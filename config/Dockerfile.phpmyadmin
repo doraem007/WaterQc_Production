@@ -1,0 +1,30 @@
+# FROM phpmyadmin/phpmyadmin:latest
+# RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+# RUN service apache2 restart
+# EXPOSE 1110
+
+# Use an existing Apache + PHP image
+FROM php:apache
+
+# Install phpMyAdmin and other dependencies
+RUN apt-get update && \
+    apt-get install -y phpmyadmin
+
+# Enable PHP extensions and Apache modules
+RUN docker-php-ext-install mysqli pdo_mysql && \
+    a2enmod rewrite
+
+# Configure Apache to serve phpMyAdmin
+COPY config/phpmyadmin.conf /etc/apache2/sites-available/
+
+# Enable the phpmyadmin site
+RUN ln -s /etc/apache2/sites-available/phpmyadmin.conf /etc/apache2/sites-enabled/
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+RUN service apache2 restart
+
+# Expose port 80
+EXPOSE 80
+
+# Start Apache
+CMD ["apache2-foreground"]
