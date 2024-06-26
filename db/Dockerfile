@@ -1,4 +1,4 @@
-FROM mysql:8.0.36
+FROM mysql:8.0.37
 WORKDIR /app
 
 MAINTAINER nareubad112@gmail.com
