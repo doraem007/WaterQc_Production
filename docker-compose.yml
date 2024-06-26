@@ -1,0 +1,51 @@
+version: '3.9'
+services:
+
+  db:
+    build: db/.
+    restart: always
+    ports:
+      - "3310:3310"
+    networks:
+      - app-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3310
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+
+  # web:
+  #   build: app/.
+  #   restart: always
+  #   ports:
+  #     - "1115:1115"
+  #   networks:
+  #     - app-network
+
+  api:
+    build: api/.
+    restart: always
+    ports:
+      - "1112:1112"
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    restart: always
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
