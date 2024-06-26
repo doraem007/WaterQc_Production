@@ -18,7 +18,7 @@ services:
   phpmyadmin:
     build:
       context: .
-      dockerfile: config/Dockerfile.phpmyadmin
+      dockerfile: Dockerfile.phpmyadmin
     restart: always
     environment:
       PMA_HOST: db
