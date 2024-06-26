@@ -24,7 +24,7 @@ services:
       PMA_HOST: db
       PMA_PORT: 3310
     ports:
-      - "8080:80"
+      - "1110:1110"
     networks:
       - app-network
 
