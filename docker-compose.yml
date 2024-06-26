@@ -28,13 +28,13 @@ services:
     networks:
       - app-network
 
-  # web:
-  #   build: app/.
-  #   restart: always
-  #   ports:
-  #     - "1115:1115"
-  #   networks:
-  #     - app-network
+  web:
+    build: app/.
+    restart: always
+    ports:
+      - "3232:3232"
+    networks:
+      - app-network
 
   api:
     build: api/.
