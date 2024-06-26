@@ -1,10 +1,17 @@
 version: '3.9'
 services:
   db:
-    build: db/.
+    image: mysql:8.0.37
     restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Xe_3AtNwRUTBtbSa
+      MYSQL_USER: doraem0070
+      MYSQL_PASSWORD: P@ssword1234
     ports:
-      - "3310:3310"
+      - "3310:3310"  
+    volumes:
+      - ./my.cnf:/etc/mysql/conf.d/my.cnf 
+      - ./localhost.sql:/docker-entrypoint-initdb.d/localhost.sql
     networks:
       - app-network
 
