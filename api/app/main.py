@@ -12,18 +12,20 @@ import asyncio
 
 
 load_dotenv()
-app = FastAPI(docs_url="/documentation", redoc_url=None)
-
-
+app = FastAPI()
+# docs_url="/documentation", redoc_url=None
 time = datetime.datetime.now()
 current_time =  time.strftime('%Y-%m-%d %H:%M:%S')
 formatted_date = time.strftime('%Y-%m-%d')
+dated = formatted_date + " "
+
+
 
 def connect_db():
     cnx = mysql.connector.connect(
         host=os.getenv("DB_HOST"),
-        port=os.getenv("DB_PORT"),
         user=os.getenv("DB_USER"),
+        port=os.getenv("DB_PORT"),
         password=os.getenv("DB_PASSWORD"),
         database=os.getenv("DB_NAME")
     )
@@ -34,9 +36,12 @@ class Devices(BaseModel):
     id: int
     currentValue: float
     stationId: int
+    logAt : str
 
 
 def updateDevice(data: List[Devices]):
+    print(current_time)
+    
     try:
         cnx = connect_db()
         with cnx.cursor() as cursor:
@@ -60,15 +65,17 @@ def updateDevice(data: List[Devices]):
     return {"message": "Devices updated successfully"}
 
 def updateLog(data: List[Devices]):
+    
     try:
         cnx = connect_db()
         with cnx.cursor() as cursor:
             for device in data:
+                
                 logQuery = (
                     "INSERT INTO DeviceLog (sensorValue, updatedAt, logAt, deviceId) "
                     "VALUES (%s, %s, %s, %s)"
                 )
-                logData = (device.currentValue, current_time, formatted_date, device.id)
+                logData = (device.currentValue, current_time, device.logAt, device.id)
                 cursor.execute(logQuery, logData)
         
         cnx.commit()
@@ -200,4 +207,7 @@ async def alert_line(line: LineNotify):
     finally:
         cursor.close()
         cnx.close()
+
+
+
 

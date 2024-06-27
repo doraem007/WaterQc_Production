@@ -54,7 +54,7 @@ export default function Page({ params }) {
         {
             data: dataDay.map(dayData => ({
                 x: formatTime(dayData.label),
-                y: [dayData.min, dayData.avg.toFixed(2), dayData.avg.toFixed(2), dayData.avg.toFixed(2), dayData.max]
+                y: [dayData.min, dayData.avg ? dayData.avg.toFixed(2) : 0, dayData.avg ? dayData.avg.toFixed(2) : 0, dayData.avg ? dayData.avg.toFixed(2) : 0, dayData.max]
             }))
         }
     ];

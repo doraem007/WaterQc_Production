@@ -94,7 +94,7 @@ export default function MapStation({ orgId }) {
                     <div className="text-4xl sm:text-5xl font-extrabold ">คุณภาพ<span className="text-sky-600">น้ำประปา</span></div>
                     <div className="sm:text-xl font-semibold text-gray-700 pt-1 ">ใน{org.orgName}</div>
                 </h1>
-                <div className=" mt-2 mx-2 py-2 sm:py-0 bg-gradient-to-br from-blue-200 to-white rounded-lg shadow-lg">
+                <div className=" mt-2 mx-2 py-2 sm:py-0 bg-gradient-to-br from-blue-200 to-white rounded-lg shadow-md">
 
                     <div className="flex justify-between items-center py-[4px] px-[8px] rounded-t-lg sm:mt-4 ">
                         <div className="text-3xl bg-green-300 rounded-full"><BsEmojiSmile /></div>
