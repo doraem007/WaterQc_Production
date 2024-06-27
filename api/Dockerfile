@@ -5,10 +5,7 @@ WORKDIR /app
 
 COPY . /app
 
-RUN pip install --upgrade pip --progress-bar off
-
-
-RUN pip install --no-cache-dir -r requirements.txt --progress-bar off
+RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 1111
 
